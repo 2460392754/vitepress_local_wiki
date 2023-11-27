@@ -1,0 +1,11 @@
+{
+	"name": "vitepress_local_wiki",
+	"private": true,
+	"scripts": {
+		"docs:dev": "vitepress dev --host --port 10050",
+		"docs:build": "vitepress build"
+	},
+	"devDependencies": {
+		"vitepress": "1.0.0-rc.29"
+	}
+}

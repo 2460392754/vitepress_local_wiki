@@ -1,0 +1,6 @@
+/.vitepress
+/.git
+
+/caches
+/node_modules
+/docs
