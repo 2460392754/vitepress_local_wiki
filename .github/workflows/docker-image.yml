@@ -14,9 +14,9 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v2
 
-        - name: Get current date
-          id: date
-          run: echo "::set-output name=today::$(date +'%Y-%m-%d_%H-%M')"
+        - name: Extract version and set it to TAG env var
+          run: |
+            echo "TAG=$(jq -r '.version' package.json)" >> $GITHUB_ENV
 
         - name: Set up QEMU
           uses: docker/setup-qemu-action@v1
@@ -42,16 +42,22 @@ jobs:
             platforms: linux/amd64,linux/arm64/v8
             push: ${{ github.event_name != 'pull_request' }}
             tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/vitepress_local_wiki:${{ steps.date.outputs.today }}
+              ${{ secrets.DOCKERHUB_USERNAME }}/vitepress_local_wiki:${{ env.TAG }}
               ${{ secrets.DOCKERHUB_USERNAME }}/vitepress_local_wiki:latest
 
-        - name: push README to Dockerhub
-          uses: christian-korneck/update-container-description-action@v1
-          env:
-            DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
-            DOCKER_PASS: ${{ secrets.DOCKERHUB_TOKEN }}
+        - name: Docker Hub Description
+          uses: peter-evans/dockerhub-description@v3
           with:
-            destination_container_repo: ${{ secrets.DOCKERHUB_USERNAME }}/vitepress_local_wiki
-            provider: dockerhub
-            short_description: 'my short description 😊'
-            readme_file: 'README.md'
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+            repository: ${{ secrets.DOCKERHUB_USERNAME }}/vitepress_local_wiki
+        # - name: push README to Dockerhub
+        #   uses: christian-korneck/update-container-description-action@v1
+        #   env:
+        #     DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+        #     DOCKER_PASS: ${{ secrets.DOCKERHUB_TOKEN }}
+        #   with:
+        #     destination_container_repo: ${{ secrets.DOCKERHUB_USERNAME }}/vitepress_local_wiki
+        #     provider: dockerhub
+        #     short_description: 'my short description 😊'
+        #     readme_file: 'README.md'
