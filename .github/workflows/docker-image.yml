@@ -22,7 +22,7 @@ jobs:
 
       - name: Extract version and set it to TAG env var
         run: |
-          echo "TAG=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+          echo "TAG=v$(jq -r '.version' package.json)" >> $GITHUB_ENV
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
