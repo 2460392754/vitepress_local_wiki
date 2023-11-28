@@ -51,7 +51,7 @@ jobs:
             DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
             DOCKER_PASS: ${{ secrets.DOCKERHUB_TOKEN }}
           with:
-            destination_container_repo: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.GITHUB_REPOSITORY_NAME_PART }}
+            destination_container_repo: ${{ secrets.DOCKERHUB_USERNAME }}/vitepress_local_wiki
             provider: dockerhub
             short_description: 'my short description 😊'
             readme_file: 'README.md'
