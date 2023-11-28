@@ -37,9 +37,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: linux/arm64/v8
-          push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.GITHUB_REPOSITORY_NAME_PART }}:${{ env.TAG }}
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.GITHUB_REPOSITORY_NAME_PART }}:latest
 
       - name: push README to Dockerhub
