@@ -51,13 +51,3 @@ jobs:
             username: ${{ secrets.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_TOKEN }}
             repository: ${{ secrets.DOCKERHUB_USERNAME }}/vitepress_local_wiki
-        # - name: push README to Dockerhub
-        #   uses: christian-korneck/update-container-description-action@v1
-        #   env:
-        #     DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
-        #     DOCKER_PASS: ${{ secrets.DOCKERHUB_TOKEN }}
-        #   with:
-        #     destination_container_repo: ${{ secrets.DOCKERHUB_USERNAME }}/vitepress_local_wiki
-        #     provider: dockerhub
-        #     short_description: 'my short description 😊'
-        #     readme_file: 'README.md'
